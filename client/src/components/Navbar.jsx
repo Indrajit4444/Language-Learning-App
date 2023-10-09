@@ -1,32 +1,36 @@
 import { Link } from "react-router-dom";
-
-function Navbar(){
-    return <nav class="navbar navbar-expand-lg bg-body-tertiary rounded" aria-label="Thirteenth navbar example">
-    <div class="container-fluid">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample11" aria-controls="navbarsExample11" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse d-lg-flex" id="navbarsExample11">
-        <p class="navbar-brand col-lg-3 me-0" >Language Learning App</p>
-        <ul class="navbar-nav col-lg-6 justify-content-lg-center">
-            <li class="nav-item" >
-              <Link class="nav-link active" aria-current="page" to="/">Game</Link>
-            </li>
-            <li class="nav-item" >
-              <Link class="nav-link active" aria-current="page" to="/progress">Progress</Link>
-            </li>
-            {/* <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li> */}
+import "./Navbar.css"
+import { useState } from "react";
+export default function Navbar(){
+    const[game,setGame]=useState("nav-item active");
+    const[progress,setProgress]=useState("nav-item");
+    const[add,setAdd]=useState("nav-item");
+    return <nav className="navbar navbar-expand-lg navbar-light ">
+    <div className="navbar-brand">Language Learning App</div>
+    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span className="navbar-toggler-icon"></span>
+    </button>
+  
+    <div className="collapse navbar-collapse d-lg-flex justify-content-lg-center" id="navbarTogglerDemo02">
+      <div className=" m-lg-auto" >
+        <ul className="navbar-nav mt-2 mt-lg-0">
+          <li className={game} >
+            <Link className="nav-link" to="/" onClick={()=>{setGame("nav-item active");setProgress("nav-item");setAdd("nav-item");}}>Game</Link>
+          </li>
+          <li className={progress}>
+            <Link className="nav-link" to="progress" onClick={()=>{setGame("nav-item");setProgress("nav-item active");setAdd("nav-item");}}>Progress</Link>
+          </li>
+          <li className={add}>
+            <Link className="nav-link" to="addQuestion" onClick={()=>{setGame("nav-item");setProgress("nav-item");setAdd("nav-item active");}}>Add Question</Link>
+          </li>
+          {/* <li className="nav-item">
+            <Link className="nav-link" to="#">Link</Link>
+          </li> */}
         </ul>
-        <div class="d-lg-flex col-lg-3 justify-content-lg-end">
-          <form method="POST" action="/logout">
-            <button class="btn btn-danger" type="submit" style={{width:"100px"}}>Log out</button>
-          </form>
-        </div>
       </div>
+      <form className="form-inline my-2 my-lg-0 logout" method="POST" action="/logout">
+        <button className="btn btn-outline-danger my-2 my-sm-0"  type="submit">Log Out</button>
+      </form>
     </div>
   </nav>
 }
-export default Navbar;

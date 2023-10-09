@@ -53,7 +53,7 @@ ul li label {
     border-radius: 6px;
     background-color: rgb(204, 204, 204);
 }
-button {
+.qsButton {
     background-color: #aa84bb;
     border: none;
     color: white;
@@ -65,11 +65,14 @@ button {
     padding: 1.3rem;
 }
 
-button:hover {
+.qsButton:hover {
     background-color: #732d91;
 }
 
-button:focus {
+.qsButton:focus {
     background-color: #5e3370;
     outline: none;
+}
+.answer{
+    visibility: hidden;
 }

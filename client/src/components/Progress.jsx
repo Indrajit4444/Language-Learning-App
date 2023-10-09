@@ -1,9 +1,32 @@
-import Navbar from "./Navbar";
+import { useEffect, useState } from "react";
 import "./Progress.css"
 function Progress() {
+  const [rightAns,setRightAns]=useState("0.00%");
+  const [wrongAns,setWrongAns]=useState("0.00%");
+  const [sure,setsure]=useState(false);
+  useEffect(()=>{
+    console.log("here");
+    fetch("/api/progress")
+    .then((response)=>response.json())
+    .then((data)=>{
+      console.log(data);
+      setRightAns(((data.right/data.total)*100).toFixed(2)+"%");
+      setWrongAns(((data.wrong/data.total)*100).toFixed(2)+"%");
+    });
+  },[sure])
+  function handleClick(){
+    setsure(true);
+  }
+  async function handleSureYes(){
+    await fetch("/api/reset");
+    setsure(false);
+    
+  }
+  function handleSureNo(){
+    setsure(false);
+  }
   return (
     <div>
-      <Navbar />
       <div className="page-content page-container" id="page-content">
         <div className="padding">
           <div className="row container d-flex justify-content-center">
@@ -26,12 +49,12 @@ function Progress() {
                     <div className="col-xl-3 col-md-6">
                       <h6>Right Answer</h6>
                       <h5 className="m-b-30 f-w-700">
-                        89%
+                        {rightAns}
                       </h5>
                       <div className="progress">
                         <div
                           className="progress-bar bg-c-green"
-                          style={{width:"89%"}}
+                          style={{width:rightAns}}
                         ></div>
                       </div>
                     </div>
@@ -39,12 +62,12 @@ function Progress() {
                     <div className="col-xl-3 col-md-6">
                       <h6>Wrong Answer</h6>
                       <h5 className="m-b-30 f-w-700">
-                        10%
+                        {wrongAns}
                       </h5>
                       <div className="progress">
                         <div
                           className="progress-bar bg-c-red"
-                          style={{width:"10%"}}
+                          style={{width:wrongAns}}
                         ></div>
                       </div>
                     </div>
@@ -63,6 +86,12 @@ function Progress() {
                   </div>
                 </div>
               </div>
+              <button class="btn btn-danger" onClick={handleClick} style={{width:"150px",marginTop:"20px"}}>Reset Progress</button>
+              {sure && <div className="sure">
+              <span className="suretxt">Are you sure?</span>
+              <button className="btn btn-danger surebtn" onClick={handleSureYes}>Yes</button>
+              <button className="btn btn-success surebtn" onClick={handleSureNo}>No</button>
+              </div>}
             </div>
           </div>
         </div>
