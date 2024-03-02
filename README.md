@@ -26,6 +26,5 @@ A Full Stack Web Application based on MERN. After creating an account a user wil
  
 ### On This Commit:
 
-- Added Progress Section (working)
-- A reset section has added that can reset user's progress
-- Add Question Function is Now Available  
+- Simplify Codes by using routes
+- Fixed minor bugs

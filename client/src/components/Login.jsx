@@ -8,7 +8,7 @@ function Login(){
     return <div>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossOrigin="anonymous"></link>
     <main className="form-signin w-25 m-auto top-50 mt-5" >
-        <form method="POST" action="/">
+        <form method="POST" action="/api/login">
             <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
             <div className="form-floating">
             <input type="email" className="form-control" name="username" id="floatingName" placeholder="name@example.com" style={{borderBottomLeftRadius:0,borderBottomRightRadius:0}}/>

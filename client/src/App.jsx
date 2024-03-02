@@ -8,7 +8,7 @@ import AddQuestion from "./components/AddQuestion";
 function App() {
   const [logged, setlogged] = useState();//user logged ?
   useEffect(() => {
-    fetch("/api")
+    fetch("/api/login")
       .then((response) => response.json())
       .then((data) => setlogged(data));
   }, []);
