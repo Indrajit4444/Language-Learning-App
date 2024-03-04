@@ -30,7 +30,8 @@ router.get("/", async (req, res) => {
       }
       if (curruser.lasttypeOfQs==="hard" && curruser.hard!=-1)
         question=await Question.findOne({type:"hard"},{questions:{$slice:[curruser.hard,1]},type:0,count:0});
-      if (!question) res.json({completed:true});
+      // console.log(question);
+      if (question.questions.length==0) res.json({completed:true});
       else{
         question=question.questions[0];
         res.json({//sending question
@@ -42,6 +43,6 @@ router.get("/", async (req, res) => {
         });
       }
     }
-    else res.redirect("/");
+    else res.json("notlogged");
   });
 module.exports=router;

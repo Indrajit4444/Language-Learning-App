@@ -1,24 +1,29 @@
 import { useEffect, useState } from "react";
 import "./Progress.css"
-function Progress() {
+import baseURL from "../baseUrl";
+function Progress(prop) {
   const [rightAns,setRightAns]=useState("0.00%");
   const [wrongAns,setWrongAns]=useState("0.00%");
   const [sure,setsure]=useState(false);
   useEffect(()=>{
-    console.log("here");
-    fetch("/api/progress")
+    console.log("progress");
+    fetch(baseURL+"/api/progress",{credentials:'include',mode:'cors'})
     .then((response)=>response.json())
     .then((data)=>{
       console.log(data);
-      setRightAns(((data.right/data.total)*100).toFixed(2)+"%");
-      setWrongAns(((data.wrong/data.total)*100).toFixed(2)+"%");
+      if (data==="notlogged")
+        prop.logged({logged:false})
+      else{
+        setRightAns(((data.right/data.total)*100).toFixed(2)+"%");
+        setWrongAns(((data.wrong/data.total)*100).toFixed(2)+"%");
+      }
     });
-  },[sure])
+  },[sure,prop])
   function handleClick(){
     setsure(true);
   }
   async function handleSureYes(){
-    await fetch("/api/reset");
+    await fetch(baseURL+"/api/reset",{credentials:'include',mode:'cors'});
     setsure(false);
     
   }

@@ -6,7 +6,7 @@ router.post("/",(req, res)=> {//log out the user
       if (err) {
         res.send("can't log out");
       } else {
-        res.redirect("/");
+        res.json({logged:false});
       }
     });
   });

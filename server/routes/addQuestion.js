@@ -41,6 +41,6 @@ router.post("/",async (req,res)=>{
         res.json("error");
       }
     }
-    else res.redirect("/"); 
+    else res.json("notlogged"); 
   })
 module.exports=router;

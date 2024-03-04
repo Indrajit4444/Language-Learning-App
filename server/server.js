@@ -14,10 +14,12 @@ const resetRoutes=require("./routes/reset");
 const addQuestionRoutes=require("./routes/addQuestion");
 const logoutRoutes=require("./routes/logout");
 
+const cors=require("cors");
 require('dotenv').config();
 
 mongoose.connect("mongodb://127.0.0.1:27017/LanguageGameDB");//connect mongoDB server here
 const User = require("./models/user");//setup collections
+const allowedSites = require("./allowedSites");
 
 app.use(
   session({
@@ -31,7 +33,7 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(cors({origin:allowedSites, credentials:true}))
 passport.serializeUser(function (User, cb) {
   process.nextTick(function () {
     return cb(null, { user: User.username });
@@ -51,7 +53,7 @@ app.use("/api/answer",answerRoutes);
 app.use("/api/progress",progessRoutes);
 app.use("/api/reset",resetRoutes);
 app.use("/api/addQuestion",addQuestionRoutes);
-app.use("/logout",logoutRoutes);
+app.use("/api/logout",logoutRoutes);
 
 app.listen(5000, () => {
   console.log("Server started on port 5000");

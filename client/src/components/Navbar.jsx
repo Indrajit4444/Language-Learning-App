@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import "./Navbar.css"
 import { useState } from "react";
-export default function Navbar(){
+import baseURL from "../baseUrl";
+export default function Navbar(prop){
     const[game,setGame]=useState("nav-item active");
     const[progress,setProgress]=useState("nav-item");
     const[add,setAdd]=useState("nav-item");
@@ -28,7 +29,20 @@ export default function Navbar(){
           </li> */}
         </ul>
       </div>
-      <form className="form-inline my-2 my-lg-0 logout" method="POST" action="/logout">
+      <form className="form-inline my-2 my-lg-0 logout"onSubmit={async (event)=>{
+            event.preventDefault();
+            await fetch(baseURL+'/api/logout', {//fetch answer from backend
+            method: 'post',
+            headers: {'content-type': 'application/json' },
+            credentials:'include',
+            mode:'cors'
+            })
+            .then(response => response.json())
+            .then((data) =>{
+                console.log(data);
+                prop.logged(data);   
+            });
+        }}>
         <button className="btn btn-outline-danger my-2 my-sm-0"  type="submit">Log Out</button>
       </form>
     </div>

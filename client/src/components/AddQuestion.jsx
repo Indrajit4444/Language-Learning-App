@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./AddQuestion.css";
+import baseURL from "../baseUrl";
 export default function AddQuestion() {
   const[qs,setQs]=useState("");
   const[op1,setOp1]=useState("");
@@ -38,8 +39,10 @@ export default function AddQuestion() {
       setStatus(<p style={{color:"red"}} >Please Mention Question Type</p>);
       return;
     }
-    await fetch('/api/addQuestion', {//fetch answer from backend
+    await fetch(baseURL+'/api/addQuestion', {//fetch answer from backend
       method: 'post',
+      credentials:'include',
+      mode:'cors',
       headers: {'content-type': 'application/json' },
       body: JSON.stringify({
         question:qs,
@@ -56,6 +59,8 @@ export default function AddQuestion() {
           setStatus(<p style={{color:"green"}}>Submitted Successfully !!</p>);
         else if(data==="duplicate")
           setStatus(<p style={{color:"red"}} >Opps!! Question already exist</p>);
+        else if (data==="notlogged")
+        setStatus(<p style={{color:"red"}} >Opps!! Not Logged In</p>);
         else setStatus(<p style={{color:"red"}} >Opps!! Something went Wrong</p>);
       });
   }

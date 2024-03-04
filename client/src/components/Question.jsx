@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Question.css"
+import baseURL from "../baseUrl";
 
 function Question (prop){//section for check question and provide ans
     // console.log("in qs");
@@ -19,9 +20,11 @@ function Question (prop){//section for check question and provide ans
     async function handleClick(event){//whenever clicked any option 
         const value=event.target.value;//getting value of the option
         // console.log(value);
-        await fetch('/api/answer', {//fetch answer from backend
+        await fetch(baseURL+'/api/answer', {//fetch answer from backend
             method: 'post',
             headers: {'content-type': 'application/json' },
+            credentials:'include',
+            mode:'cors',
             body: JSON.stringify({answer:value})})
             .then(response => response.json())
             .then((data) =>{

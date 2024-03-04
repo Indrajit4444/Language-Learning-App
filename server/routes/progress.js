@@ -10,6 +10,6 @@ router.get("/",async (req,res)=>{
       qsCount=qsCount[0].count+qsCount[1].count+qsCount[2].count;
       res.json({right:curruser.rightAnsCount,wrong:curruser.wrongAnsCount,total:qsCount});
     }
-    else res.redirect("/");
+    else res.json("notlogged");
   })
 module.exports=router;

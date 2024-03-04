@@ -4,6 +4,7 @@ const passport = require("passport");
 const User = require("../models/user");//setup collections
 
 router.get("/", async (req, res) => {//sends response to client that user logged in or not
+    console.log(req.session);
     if (req.isAuthenticated()){
       
       res.json({ logged: true });
@@ -11,8 +12,8 @@ router.get("/", async (req, res) => {//sends response to client that user logged
     else res.json({ logged: false })
   });
 router.post("", (req, res) => {//handle login or register
-    // console.log(req.body);
-    if (req.body.logorreg == 0) {
+    console.log(req.body);
+    if (req.body.logorreg) {
       new User({
         //for login
         username: req.body.username,
@@ -20,7 +21,7 @@ router.post("", (req, res) => {//handle login or register
       });
       passport.authenticate("local",{failureRedirect:"/"})(req, res, function () {
         // console.log("Authenticated");
-        res.redirect("/");
+        res.json({logged:true});
       });
     } else {
       User.register(
@@ -43,7 +44,7 @@ router.post("", (req, res) => {//handle login or register
           else
             passport.authenticate("local")(req, res, function () {//authenticate the new user
               username = user.username;
-              res.redirect("/");
+              res.json({logged:true});
             });
         }
       );
