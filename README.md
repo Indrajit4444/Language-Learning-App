@@ -20,11 +20,10 @@ A Full Stack Web Application based on MERN. After creating an account a user wil
 
  Install and setup Latest version of `Node Js` and `MongoDB` in your system. Open up your terminal and and cd over to both server and client and type command
  `npm init`
- Create a database name `LanguageGameDB` in your system ( I used my local system if you want to use another change the link on `server/server.js-> Line 11`) . 
+ Create a database name `LanguageGameDB` in your system ( I used my local system if you want to use another change the link on `server/server.js-> Line 20`) . Update the lists of `server/allowedSites.js` to update the frontend address that are allowed to communicate with server. Update `client/src/baseUrl.js` to your backend address.
  Now Create some demo question on `LanguageGameDB` with the collection name of `questions` and follow the schema from `server/models/question.js`.
  Now create some account and see the question appear in the screen.
  
 ### On This Commit:
 
-- Simplify Codes by using routes
-- Fixed minor bugs
+- Used CORS for communication of different origin
