@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/static/css/main.6b9bd41f.css",
-    "main.js": "/static/js/main.2fb2c0a2.js",
-    "index.html": "/index.html",
-    "main.6b9bd41f.css.map": "/static/css/main.6b9bd41f.css.map",
-    "main.2fb2c0a2.js.map": "/static/js/main.2fb2c0a2.js.map"
+    "main.css": "/Language-Learning-App/static/css/main.6b9bd41f.css",
+    "main.js": "/Language-Learning-App/static/js/main.2fb2c0a2.js",
+    "index.html": "/Language-Learning-App/index.html",
+    "main.6b9bd41f.css.map": "/Language-Learning-App/static/css/main.6b9bd41f.css.map",
+    "main.2fb2c0a2.js.map": "/Language-Learning-App/static/js/main.2fb2c0a2.js.map"
   },
   "entrypoints": [
     "static/css/main.6b9bd41f.css",
