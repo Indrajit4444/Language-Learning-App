@@ -6,6 +6,7 @@ function Register(prop){
     const [name,setName]=useState();
     const [username,setUsername]=useState();
     const [password,setPassword]=useState();
+    const [status,setStatus]=useState();
     return <div>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossOrigin="anonymous"></link>
     <main className="form-signin w-25 m-auto top-50 mt-5" >
@@ -20,7 +21,13 @@ function Register(prop){
             .then(response => response.json())
             .then((data) =>{
                 console.log(data);
-                prop.logged(data);   
+                if (data==="already exist"){
+                    setStatus(<p style={{color:"red"}} >User Already Exist!!</p>);
+                }
+                else{
+                    setStatus();
+                    prop.logged(data);   
+                }
             });
         }}>
             <h1 className="h3 mb-3 fw-normal">Please Register</h1>
@@ -44,6 +51,7 @@ function Register(prop){
             </div>
             <button className="btn btn-primary w-100 py-2 mt-4 " type="submit" name="logorreg" value={1}>Register</button>
             <p onClick={()=>prop.setlogin(true)} style={{cursor: "pointer"}}>LogIn</p>
+            {status}
             <p className="mt-5 mb-3 text-body-secondary" style={{marginLeft:"42%"}}>© {date.getFullYear()}</p>
         </form>
     </main>

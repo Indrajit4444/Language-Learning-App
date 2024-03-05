@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {//sends response to client that user logged
     }
     else res.json({ logged: false })
   });
-router.post("", (req, res) => {//handle login or register
+router.post("/", (req, res) => {//handle login or register
     console.log(req.body);
     if (req.body.logorreg) {
       new User({
@@ -19,7 +19,7 @@ router.post("", (req, res) => {//handle login or register
         username: req.body.username,
         password: req.body.password,
       });
-      passport.authenticate("local",{failureRedirect:"/"})(req, res, function () {
+      passport.authenticate("local",{failureRedirect:"/api/login"})(req, res, function () {
         // console.log("Authenticated");
         res.json({logged:true});
       });
@@ -40,7 +40,7 @@ router.post("", (req, res) => {//handle login or register
         }),
         req.body.password,
         function (err, user) {
-          if (err) res.send("opps!! user already exist");
+          if (err) res.json("already exist");
           else
             passport.authenticate("local")(req, res, function () {//authenticate the new user
               username = user.username;
