@@ -5,6 +5,14 @@ const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const bodyParser = require("body-parser");
+const https = require('https');
+const fs = require('fs');
+
+const options = {
+  key: fs.readFileSync('./cert/localhost.key'),
+  cert: fs.readFileSync('./cert/localhost.crt')
+};
+const server = https.createServer(options, app);
 
 const loginRoutes=require("./routes/login");
 const gameRoutes=require("./routes/game");
@@ -26,6 +34,7 @@ app.use(
     secret: process.env.SESSION_KEY,//put your session key on .env file
     resave: false,
     saveUninitialized: false,
+    cookie:{sameSite:"none",secure:true}
   })
 );
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -55,6 +64,10 @@ app.use("/api/reset",resetRoutes);
 app.use("/api/addQuestion",addQuestionRoutes);
 app.use("/api/logout",logoutRoutes);
 
-app.listen(5000, () => {
-  console.log("Server started on port 5000");
+// app.listen(5000, () => {
+//   console.log("Server started on port 5000");
+// });
+const port=5000;
+server.listen(port, () => {
+  console.log(`Server is listening on https://localhost:${port}`);
 });

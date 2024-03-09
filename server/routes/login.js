@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {//sends response to client that user logged
     else res.json({ logged: false })
   });
 router.post("/", (req, res) => {//handle login or register
-    console.log(req.body);
+    // console.log(req.body);
     if (req.body.logorreg) {
       new User({
         //for login
