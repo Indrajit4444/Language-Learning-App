@@ -5,18 +5,21 @@ const User = require("../models/user");
 const Question = require("../models/question");
 
 router.post("/", async (req, res) => {//provider correct answer afer user attempted (future use)
-    if (req.isAuthenticated() && req.body.hasOwnProperty("answer")){
+    if (req.isAuthenticated() && req.body.hasOwnProperty("answer") && req.body.hasOwnProperty("question")){
       let currUsername=req.session.passport.user.user;
       let curruser = await User.findOne({ username: currUsername });
       if (curruser.easy==-1 && curruser.medium==-1 &&  curruser.hard==-1){
         res.json({completed:true});
         return;
       }
-      let question=null;
       // console.log(req.body);
       eval("qsno = curruser."+curruser.lasttypeOfQs);
-      question=await Question.findOne({type:curruser.lasttypeOfQs},{questions:{$slice:[qsno,1]},type:0});
+      let question=await Question.findOne({type:curruser.lasttypeOfQs},{questions:{$slice:[qsno,1]},type:0});
       let ans= question.questions[0].ans;
+      if (question.questions[0].qs!=req.body.question){
+        res.json('not match');
+        return;
+      }
       if (req.body.answer===ans){//if right ans
         await User.updateOne({username:currUsername},{rightAnsCount:++curruser.rightAnsCount,
           consecutiveRightAns:++curruser.consecutiveRightAns,

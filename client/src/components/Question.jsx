@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Question.css"
 import baseURL from "../baseUrl";
-
+const [red,green,white]=[{backgroundColor:"#f35d5d"},{backgroundColor:"#85d358"},{backgroundColor:"rgb(216, 216, 216)"}]
 function Question (prop){//section for check question and provide ans
     // console.log("in qs");
     const [ans,setans]=useState();//set ans from server response
@@ -10,10 +10,10 @@ function Question (prop){//section for check question and provide ans
     const [option3,setOption3]=useState();
     const [option4,setOption4]=useState();
 
-    const [colorOption1,setcolorOption1]=useState({backgroundColor:"rgb(216, 216, 216)"}); //setup to change indivisual color
-    const [colorOption2,setcolorOption2]=useState({backgroundColor:"rgb(216, 216, 216)"});
-    const [colorOption3,setcolorOption3]=useState({backgroundColor:"rgb(216, 216, 216)"});
-    const [colorOption4,setcolorOption4]=useState({backgroundColor:"rgb(216, 216, 216)"});
+    const [colorOption1,setcolorOption1]=useState(white); //setup to change indivisual color
+    const [colorOption2,setcolorOption2]=useState(white);
+    const [colorOption3,setcolorOption3]=useState(white);
+    const [colorOption4,setcolorOption4]=useState(white);
 
 
     // console.log(option1);
@@ -25,27 +25,29 @@ function Question (prop){//section for check question and provide ans
             headers: {'content-type': 'application/json' },
             credentials:'include',
             mode:'cors',
-            body: JSON.stringify({answer:value})})
+            body: JSON.stringify({question:prop.qs.qs, answer:value})})
             .then(response => response.json())
             .then((data) =>{
-                setans(data.ans);
-                console.log(data.ans);
-                setOption1(prop.qs.op1);
-                setOption2(prop.qs.op2);
-                setOption3(prop.qs.op3);
-                setOption4(prop.qs.op4);    
+                if (data!=="not match"){
+                    setans(data.ans);
+                    console.log(data.ans);
+                    setOption1(prop.qs.op1);
+                    setOption2(prop.qs.op2);
+                    setOption3(prop.qs.op3);
+                    setOption4(prop.qs.op4);    
+                }
             });
     }
     useEffect(() => {
         if  (ans!=null){//setting up color
-            if (ans===option1) setcolorOption1({backgroundColor:"#85d358"});//green for right
-            else setcolorOption1({backgroundColor:"#f35d5d"});//red for wrong
-            if (ans===option2) setcolorOption2({backgroundColor:"#85d358"});
-            else setcolorOption2({backgroundColor:"#f35d5d"});
-            if (ans===option3) setcolorOption3({backgroundColor:"#85d358"});
-            else setcolorOption3({backgroundColor:"#f35d5d"});
-            if (ans===option4) setcolorOption4({backgroundColor:"#85d358"});
-            else setcolorOption4({backgroundColor:"#f35d5d"});
+            if (ans===option1) setcolorOption1(green);//green for right
+            else setcolorOption1(red);//red for wrong
+            if (ans===option2) setcolorOption2(green);
+            else setcolorOption2(red);
+            if (ans===option3) setcolorOption3(green);
+            else setcolorOption3(red);
+            if (ans===option4) setcolorOption4(green);
+            else setcolorOption4(red);
         }
     },[option1,option2,option3,option4,ans])
 
@@ -74,10 +76,10 @@ function Question (prop){//section for check question and provide ans
                     </ul>
             </div>
             <button className="qsButton" id="submit" onClick={()=>{
-                setcolorOption1({backgroundColor:"rgb(216, 216, 216)"});
-                setcolorOption2({backgroundColor:"rgb(216, 216, 216)"});
-                setcolorOption3({backgroundColor:"rgb(216, 216, 216)"});
-                setcolorOption4({backgroundColor:"rgb(216, 216, 216)"});
+                setcolorOption1(white);
+                setcolorOption2(white);
+                setcolorOption3(white);
+                setcolorOption4(white);
                 setans(null);
                 prop.setNext((prev)=>{return prev ? false: true});
             }}>Next</button>
