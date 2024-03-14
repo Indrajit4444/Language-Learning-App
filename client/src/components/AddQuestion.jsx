@@ -65,7 +65,7 @@ export default function AddQuestion() {
       });
   }
   return (
-      <div id="my-modal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div id="my-modal" tabIndex="-1" role="dialog" aria-hidden="true">
         <div
           className="modal-dialog  modal-dialog-centered justify-content-center " role="document">
           <div className="modal-content  border-0 mx-3">

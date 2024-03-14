@@ -3,7 +3,7 @@ const router= express.Router();
 const passport = require("passport");
 const User = require("../models/user");//setup collections
 
-router.get("/", async (req, res) => {//sends response to client that user logged in or not
+router.get("/", (req, res) => {//sends response to client that user logged in or not
     console.log(req.session);
     if (req.isAuthenticated()){
       

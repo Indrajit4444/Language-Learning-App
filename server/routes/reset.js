@@ -13,7 +13,7 @@ router.get("/",async (req,res)=>{
         rightAnsCount:0,
         wrongAnsCount:0,
         consecutiveRightAns:0,
-        consecutiveWrongAns:0})
+        consecutiveWrongAns:0}).catch((e)=>{console.log(e)});
       res.json({reset:true});
     }
   })

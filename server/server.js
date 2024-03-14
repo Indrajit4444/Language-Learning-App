@@ -25,7 +25,7 @@ const logoutRoutes=require("./routes/logout");
 const cors=require("cors");
 require('dotenv').config();
 
-mongoose.connect("mongodb://127.0.0.1:27017/LanguageGameDB");//connect mongoDB server here
+mongoose.connect("mongodb://127.0.0.1:27017/LanguageGameDB").catch((e)=>{console.log("error while connectiong to DB\n"+e)});//connect mongoDB server here
 const User = require("./models/user");//setup collections
 const allowedSites = require("./allowedSites");
 

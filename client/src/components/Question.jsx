@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./Question.css"
 import baseURL from "../baseUrl";
 const [red,green,white]=[{backgroundColor:"#f35d5d"},{backgroundColor:"#85d358"},{backgroundColor:"rgb(216, 216, 216)"}]
-function Question (prop){//section for check question and provide ans
+function Question (prop){//section htmlFor check question and provide ans
     // console.log("in qs");
     const [ans,setans]=useState();//set ans from server response
     const [option1,setOption1]=useState();//setup questions and options from server
@@ -40,8 +40,8 @@ function Question (prop){//section for check question and provide ans
     }
     useEffect(() => {
         if  (ans!=null){//setting up color
-            if (ans===option1) setcolorOption1(green);//green for right
-            else setcolorOption1(red);//red for wrong
+            if (ans===option1) setcolorOption1(green);//green htmlFor right
+            else setcolorOption1(red);//red htmlFor wrong
             if (ans===option2) setcolorOption2(green);
             else setcolorOption2(red);
             if (ans===option3) setcolorOption3(green);
@@ -59,19 +59,19 @@ function Question (prop){//section for check question and provide ans
                     <ul>
                         <li style={colorOption1} className="forli">
                             <input type="radio" id="a" name="answer" onClick={handleClick} value={prop.qs.op1} className="answer" />
-                            <label id="a_text" for="a" onClick={handleClick}>{prop.qs.op1}</label>
+                            <label id="a_text" htmlFor="a" onClick={handleClick}>{prop.qs.op1}</label>
                         </li>
                         <li style={colorOption2} className="forli">
                             <input type="radio" id="b" name="answer" onClick={handleClick} value={prop.qs.op2} className="answer" />
-                            <label id="b_text" for="b">{prop.qs.op2}</label>
+                            <label id="b_text" htmlFor="b">{prop.qs.op2}</label>
                         </li>
                         <li style={colorOption3} className="forli">
                             <input type="radio" id="c" name="answer" onClick={handleClick} value={prop.qs.op3} className="answer" />
-                            <label id="c_text" for="c">{prop.qs.op3}</label>
+                            <label id="c_text" htmlFor="c">{prop.qs.op3}</label>
                         </li>
                         <li style={colorOption4} className="forli">
                             <input type="radio" id="d" name="answer" onClick={handleClick} value={prop.qs.op4} className="answer" />
-                            <label id="d_text" for="d">{prop.qs.op4}</label>
+                            <label id="d_text" htmlFor="d">{prop.qs.op4}</label>
                         </li>
                     </ul>
             </div>

@@ -91,7 +91,7 @@ function Progress(prop) {
                   </div>
                 </div>
               </div>
-              <button class="btn btn-danger" onClick={handleClick} style={{width:"150px",marginTop:"20px"}}>Reset Progress</button>
+              <button className="btn btn-danger" onClick={handleClick} style={{width:"150px",marginTop:"20px"}}>Reset Progress</button>
               {sure && <div className="sure">
               <span className="suretxt">Are you sure?</span>
               <button className="btn btn-danger surebtn" onClick={handleSureYes}>Yes</button>
