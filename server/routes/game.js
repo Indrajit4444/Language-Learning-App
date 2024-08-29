@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
       let question=null;
       if (curruser.lasttypeOfQs === "easy"){
         if (curruser.easy==-1){
-          await user.updateOne({username:currUsername},{lasttypeOfQs:"medium"});
+          await User.updateOne({username:currUsername},{lasttypeOfQs:"medium"});
           curruser.lasttypeOfQs="medium";
         }
         else{
@@ -21,7 +21,7 @@ router.get("/", async (req, res) => {
       } 
       if (curruser.lasttypeOfQs === "medium"){
         if (curruser.medium==-1){
-          await user.updateOne({username:currUsername},{lasttypeOfQs:"hard"});
+          await User.updateOne({username:currUsername},{lasttypeOfQs:"hard"});
           curruser.lasttypeOfQs="hard";
         }
         else{

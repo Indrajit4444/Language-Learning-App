@@ -39,11 +39,10 @@ router.post("/", (req, res) => {//handle login or register
           consecutiveWrongAns:0
         }),
         req.body.password,
-        function (err, user) {
+        function (err) {
           if (err) res.json("already exist");
           else
             passport.authenticate("local")(req, res, function () {//authenticate the new user
-              username = user.username;
               res.json({logged:true});
             });
         }
