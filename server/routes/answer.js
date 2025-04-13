@@ -5,6 +5,7 @@ const User = require("../models/user");
 const Question = require("../models/question");
 
 router.post("/", async (req, res) => {//provider correct answer afer user attempted (future use)
+  try {
     if (req.isAuthenticated() && req.body.hasOwnProperty("answer") && req.body.hasOwnProperty("question")){
       let currUsername=req.session.passport.user.user;
       let curruser = await User.findOne({ username: currUsername });
@@ -13,7 +14,7 @@ router.post("/", async (req, res) => {//provider correct answer afer user attemp
         return;
       }
       // console.log(req.body);
-      eval("qsno = curruser."+curruser.lasttypeOfQs);
+      const qsno=curruser[curruser.lasttypeOfQs];
       let question=await Question.findOne({type:curruser.lasttypeOfQs},{questions:{$slice:[qsno,1]},type:0});
       let ans= question.questions[0].ans;
       if (question.questions[0].qs!=req.body.question){
@@ -87,5 +88,8 @@ router.post("/", async (req, res) => {//provider correct answer afer user attemp
       res.json({ ans: ans });
     }
     else res.send("error");
-  });
+  } catch (error) {
+    console.log(error);
+  }
+});
 module.exports=router;

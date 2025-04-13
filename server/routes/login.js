@@ -4,14 +4,19 @@ const passport = require("passport");
 const User = require("../models/user");//setup collections
 
 router.get("/", async (req, res) => {//sends response to client that user logged in or not
+  try {
     console.log(req.session);
     if (req.isAuthenticated()){
       
       res.json({ logged: true });
     }
     else res.json({ logged: false })
-  });
+  } catch (error) {
+    console.log(error);
+  }
+});
 router.post("/", (req, res) => {//handle login or register
+  try {
     console.log(req.body);
     if (req.body.logorreg) {
       new User({
@@ -48,6 +53,9 @@ router.post("/", (req, res) => {//handle login or register
         }
       );
     }
-  });
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 module.exports=router;

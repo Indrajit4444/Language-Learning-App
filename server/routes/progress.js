@@ -4,6 +4,7 @@ const User = require("../models/user");
 const Question = require("../models/question");
 
 router.get("/",async (req,res)=>{
+  try {
     if (req.isAuthenticated()){
       let curruser = await User.findOne({ username: req.session.passport.user.user});
       let qsCount=await Question.find({},{questions:0,type:0})
@@ -11,5 +12,8 @@ router.get("/",async (req,res)=>{
       res.json({right:curruser.rightAnsCount,wrong:curruser.wrongAnsCount,total:qsCount});
     }
     else res.json("notlogged");
-  })
+  } catch (error) {
+    console.log(error);
+  }
+})
 module.exports=router;

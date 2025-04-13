@@ -6,6 +6,7 @@ const Question = require("../models/question");
 //app.use(bodyParser.urlencoded({extended:true}));
 
 router.get("/", async (req, res) => {
+  try {
     if (req.isAuthenticated()) {//only accessible if user logged
       let currUsername=req.session.passport.user.user;
       let curruser = await User.findOne({ username: currUsername });//find current user data from user collection
@@ -44,5 +45,8 @@ router.get("/", async (req, res) => {
       }
     }
     else res.json("notlogged");
+  } catch (error) {
+    console.log(error);
+  }
   });
 module.exports=router;

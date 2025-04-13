@@ -3,6 +3,7 @@ const router= express.Router();
 const User = require("../models/user");
 
 router.get("/",async (req,res)=>{
+  try {
     // console.log("reset");
     if (req.isAuthenticated()){
       await User.updateOne({username:req.session.passport.user.user},{
@@ -16,5 +17,8 @@ router.get("/",async (req,res)=>{
         consecutiveWrongAns:0})
       res.json({reset:true});
     }
-  })
+  } catch (error) {
+    console.log(error);
+  }
+})
 module.exports= router;
