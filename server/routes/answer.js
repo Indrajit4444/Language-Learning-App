@@ -13,7 +13,7 @@ router.post("/", async (req, res) => {//provider correct answer afer user attemp
         return;
       }
       // console.log(req.body);
-      eval("qsno = curruser."+curruser.lasttypeOfQs);
+      const qsno=curruser[curruser.lasttypeOfQs];
       let question=await Question.findOne({type:curruser.lasttypeOfQs},{questions:{$slice:[qsno,1]},type:0}).catch((e)=>{console.log(e)});
       let ans= question.questions[0].ans;
       if (question.questions[0].qs!=req.body.question){
